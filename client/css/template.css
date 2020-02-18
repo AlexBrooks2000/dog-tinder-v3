@@ -1,0 +1,148 @@
+/* template css */
+
+body {
+  background-color: #e9ebee;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.header {
+  padding: 1em;
+  background-color: royalblue;
+  color: white;
+}
+
+#logo {
+  width: 10%;
+}
+
+#brandName {
+  width: 20%;
+}
+
+#signIn {
+  float: right;
+}
+
+.signInButton {
+  background-color: royalblue;
+  border-color: black;
+  color: white;
+}
+
+.signInButton:hover {
+  background-color: white;
+  color: black;
+}
+
+.headerText {
+  display: inline;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.column.side {
+  width: 20%;
+}
+
+.column.main {
+  width: 70%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .column.side, .column.middle {
+    width: 100%;
+  }
+}
+
+.displayViews {
+  background-color: white;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  /* margin-left: 1em;
+  margin-right: 1em; */
+
+}
+
+.profilePic {
+  width: 10em;
+  height auto;
+  margin-left: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.nameDiv {
+  float: right;
+  margin-right: 5em;
+}
+
+.middleDivs {
+  background-color: white;
+  /* display: inline; */
+  width: 45%;
+  float: left;
+  margin: 0.5em;
+}
+
+.titles {
+  border-bottom-style: solid;
+  border-color: #e9ebee;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#chatButton {
+  background-color: #e9ebee;
+  border: none;
+}
+
+.navButtons {
+  width: 100%;
+  background-color: white
+  /* transition-duration: 0.4s; */
+}
+
+.navButtons:hover {
+  background-color: #e9ebee;
+}
+
+/* css for search page */
+
+.profileView {
+  width: 100%;
+  background-color: white;
+  margin-bottom: 1em;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.dogImage {
+  margin: 1em;
+
+
+}
+
+.secondDiv {
+  float: right;
+
+}
+p {
+  text-align: justify;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+li {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
