@@ -33,9 +33,9 @@ function listDogs(dogs) {
 function addDogButton() {
   const addDog = document.createElement("button");
   addDog.textContent = "Add Dog";
-  // addDog.addEventListener("click", function() {
-  //   loadScript("js/addDog.js");
-  // });
+  addDog.addEventListener("click", function() {
+    window.location.href = "add_dog.html";
+  });
   document.querySelector("#mainView").appendChild(addDog);
 }
 
