@@ -1,5 +1,5 @@
 function listDogs(dogs) {
-
+  console.log("Look I am working");
   for (const dog of dogs) {
     if (dog.owner === "me") {
       const mainDiv = document.createElement("div");

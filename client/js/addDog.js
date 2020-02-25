@@ -91,10 +91,26 @@ function createDogobject() {
   const size = document.querySelector("#dogSize").value;
   const kennelClub = document.querySelector("#dogKennel").value;
   const pedigree = document.querySelector("#dogPedigree").value;
+  const owner = "me";
 
-  const newDog = new Dog(profile, name, breed, sex, size, kennelClub, pedigree);
+  const newDog = new Dog(profile, name, breed, sex, size, kennelClub, pedigree, owner);
 
+  postToServer(newDog);
+}
+
+async function postToServer(newDog) {
   console.log(newDog);
+  const response = await fetch('dogs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newDog),
+  });
+
+  if (response.ok) {
+    console.log("posted to the server");
+  } else {
+    console.log("mission failed, we'll get em next time!!!")
+  }
 }
 
 function loadAddDogs() {
