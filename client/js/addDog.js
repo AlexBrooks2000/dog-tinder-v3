@@ -7,6 +7,7 @@ class Dog {
     this.size = size;
     this.kennelClub = kennelClub;
     this.pedigree = pedigree;
+    this.email = email;
   }
 }
 
@@ -72,6 +73,7 @@ function addDog() {
   addInput("dog Size:", "dogSize");
   addInput("Is your dog registered to the kennel club?", "dogKennel", true);
   addInput("Is your dog a pedigree?", "dogPedigree", true);
+  addInput("contact email", "email");
 
 }
 
@@ -92,8 +94,9 @@ function createDogobject() {
   const kennelClub = document.querySelector("#dogKennel").value;
   const pedigree = document.querySelector("#dogPedigree").value;
   const owner = "me";
+  const email = document.querySelector("#email").value;
 
-  const newDog = new Dog(profile, name, breed, sex, size, kennelClub, pedigree, owner);
+  const newDog = new Dog(profile, name, breed, sex, size, kennelClub, pedigree, owner, email);
 
   postToServer(newDog);
 }

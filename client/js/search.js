@@ -87,10 +87,11 @@ function addDogProfile(dogs) {
           butPro.textContent = "view profile";
           secondDiv.appendChild(butPro);
 
-          //add message button
-          const butMsg = document.createElement("button");
-          butMsg.textContent = "message owner";
-          secondDiv.appendChild(butMsg);
+          //add contact
+          const email = document.createElement("a");
+          email.textContent = "email";
+          email.setAttribute("href", "mailto:" + dog.email);
+          secondDiv.appendChild(email);
 
           //Adds div to the main body
           secondDiv.setAttribute("class", "secondDiv")
