@@ -1,14 +1,39 @@
 class Dog {
-  constructor(image, name, breed, sex, size, kennelClub, pedigree) {
+  constructor(image, name, breed, sex, size, description, features, kennelClub, pedigree, email, owner) {
     this.image = image;
     this.name = name;
     this.breed = breed;
     this.sex = sex;
     this.size = size;
+    this.description = description;
+    this.features = features;
     this.kennelClub = kennelClub;
     this.pedigree = pedigree;
     this.email = email;
+    this.owner = owner;
   }
+}
+
+function addField(div, className) {
+  const newField = document.createElement("input");
+  newField.setAttribute("class", className);
+  const addBreak = document.createElement("br");
+  div.append(newField, addBreak);
+}
+
+function addDiv(label, divName, className, title) {
+  const inputLabel = document.createElement("label");
+  inputLabel.textContent = label;
+  const div = document.createElement("div");
+  div.id = divName;
+  const btn = document.createElement("button");
+  btn.textContent = "add" + title;
+  btn.addEventListener("click", function() {
+    addField(div, className);
+  })
+  addField(div, className);
+  const addBreak = document.createElement("br");
+  document.querySelector("#mainView").append(inputLabel, div, btn, addBreak);
 }
 
 function addDog() {
@@ -71,8 +96,11 @@ function addDog() {
 
 
   addInput("dog Size:", "dogSize");
+  addDiv("Features:", "features", "features", "features");
+  addInput("Description:", "description");
   addInput("Is your dog registered to the kennel club?", "dogKennel", true);
   addInput("Is your dog a pedigree?", "dogPedigree", true);
+  addInput("Is your dog avaliable for breeding?", "avaliable", true);
   addInput("contact email", "email");
 
 }
@@ -86,6 +114,12 @@ function addButton() {
 }
 
 function createDogobject() {
+  let features = [];
+  const getFeatures = document.getElementsByClassName("features");
+  for (const feature of getFeatures) {
+    features.push(feature.value);
+  }
+
   const profile = document.querySelector("#dogProfile").value;
   const name = document.querySelector("#dogName").value;
   const breed = document.querySelector("#dogBreed").value;
@@ -93,10 +127,11 @@ function createDogobject() {
   const size = document.querySelector("#dogSize").value;
   const kennelClub = document.querySelector("#dogKennel").value;
   const pedigree = document.querySelector("#dogPedigree").value;
+  const description = document.querySelector("#description").value;
   const owner = "me";
   const email = document.querySelector("#email").value;
 
-  const newDog = new Dog(profile, name, breed, sex, size, kennelClub, pedigree, owner, email);
+  const newDog = new Dog(profile, name, breed, sex, size, description, features, kennelClub, pedigree, email, owner);
 
   postToServer(newDog);
 }

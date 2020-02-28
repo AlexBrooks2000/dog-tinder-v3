@@ -15,6 +15,17 @@ let profileDescription = "";
 let profileKennelClub = false;
 let profilePedegree = false;
 
+let dogs = [];
+
+async function getDogs() {
+  const response = await fetch('dogs');
+  if (response.ok) {
+    dogs = await response.json();
+  } else {
+    console.log("error");
+  }
+}
+
 function filter(arr, type) {
   const dropBox = document.createElement("select");
   for (const item of arr) {
@@ -82,9 +93,17 @@ function addDogProfile(dogs) {
           dogSex.textContent = "sex: " + dog.sex;
           secondDiv.appendChild(dogSex);
 
+          const avaliable = document.createElement("p");
+          avaliable.textContent = "avaliable: " + dog.avaliable;
+          secondDiv.appendChild(avaliable);
+
           //add view profile button
           const butPro = document.createElement("button");
           butPro.textContent = "view profile";
+          butPro.addEventListener("click", function() {
+            sessionStorage.setItem("dogId", dog.id);
+            window.location.href = "profile.html";
+          });
           secondDiv.appendChild(butPro);
 
           //add contact
@@ -116,6 +135,7 @@ function addDivs() {
 }
 
 function loadedSearch() {
+  getDogs();
   addDivs();
   filter(breeds, "breedFilter");
   filter(sex, "sexFilter");

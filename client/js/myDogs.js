@@ -1,3 +1,14 @@
+let dogs = [];
+
+async function getDogs() {
+  const response = await fetch('dogs');
+  if (response.ok) {
+    dogs = await response.json();
+  } else {
+    console.log("error");
+  }
+}
+
 function listDogs(dogs) {
   console.log("Look I am working");
   for (const dog of dogs) {
@@ -40,6 +51,7 @@ function addDogButton() {
 }
 
 function loadedDogs() {
+  getDogs();
   listDogs(dogs);
   addDogButton();
 }
