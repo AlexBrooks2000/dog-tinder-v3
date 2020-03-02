@@ -54,12 +54,6 @@ function setFilters() {
   addDogProfile(dogs)
 }
 
-function addDogDetails(divName, newDiv) {
-  const newItem = document.createElement("p");
-  newItem.textContent = divName;
-  newDiv
-}
-
 function addDogProfile(dogs) {
 
   document.querySelector("#secondView").innerHTML = "";

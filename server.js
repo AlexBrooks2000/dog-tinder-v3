@@ -9,11 +9,23 @@ let dogs = [{id: "wby6env6ekb4", image: "images/pug.jpg", name: "mike", breed: "
 {id: "ngw76vke2b6jg", image: "images/yoda.jpg", name: "Baby Yoda", breed: "unknown", sex: "unknown", size: "small", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: "not me", avaliable: false, email: "rwinslett3@shop-pro.jp"},
 {id: "nf5wmfk64las", image: "images/chickpea.jpg", name: "Chickpea", breed: "corgi", sex: "female", size: "medium", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: "me", avaliable: true, email: "haskham4@lycos.com"}];
 
+function getDog(id) {
+  for (const dog of dogs) {
+    if (dog.id === id) {
+      return dog;
+    }
+  }
+  return null;
+}
+
 app.get('/dogs', (req, res) => {
   res.json(dogs);
 });
 
-
+app.get('/dogs/:id', (req, res) => {
+  const dog = getDog(req.params.id);
+  res.json(dog);
+});
 
 app.post('/dogs', express.json(), (req, res) => {
   const newDog = {
@@ -34,4 +46,4 @@ app.post('/dogs', express.json(), (req, res) => {
   res.json(dogs);
 });
 
-app.listen(8080);
+app.listen(8081);

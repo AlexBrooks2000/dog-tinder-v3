@@ -1,16 +1,21 @@
-let profileDog = dogs[0];
-
-function setProfileDog(){
+async function setProfileDog(){
   const id = sessionStorage.getItem("dogId");
-  console.log(dogs);
-  console.log(id);
-  for (const dog of dogs) {
-    console.log(dog);
+  const response = await fetch(`dogs/${id}`);
+  let profileDog = [];
+  if (response.ok) {
+    profileDog = await response.json();
+  } else {
+    console.log("couldn't fetch from server");
   }
-}
+  createProfileTop(profileDog);
+  addDescription(profileDog);
+  addFeatures(profileDog);
+  addKennelClub(profileDog);
+  addPedigree(profileDog);
+};
 
-console.log(dogs);
-function createProfileTop() {
+function createProfileTop(profileDog) {
+  console.log("this is running");
   let newDiv = document.createElement("div");
   let secondDiv = document.createElement("div");
   let newImg = document.createElement("IMG");
@@ -34,10 +39,14 @@ function createProfileTop() {
   sex.setAttribute("class", "dogSex");
   secondDiv.appendChild(sex);
 
-  let newButton = document.createElement("button");
-  newButton.textContent = "Chat Now!";
-  newButton.setAttribute("id", "chatButton")
-  secondDiv.appendChild(newButton);
+  const email = document.createElement("a");
+  email.textContent = "email";
+  email.setAttribute("href", "mailto:" + profileDog.email);
+  secondDiv.appendChild(email);
+  // let newButton = document.createElement("button");
+  // newButton.textContent = "Chat Now!";
+  // newButton.setAttribute("id", "chatButton")
+  // secondDiv.appendChild(newButton);
 
   newDiv.setAttribute("class", "displayViews");
   secondDiv.setAttribute("class", "nameDiv");
@@ -45,7 +54,7 @@ function createProfileTop() {
   document.querySelector("#mainView").appendChild(newDiv);
 }
 
-function addFeatures(dogs) {
+function addFeatures(profileDog) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("class", "middleDivs");
   let featuresTitle = document.createElement("h3");
@@ -63,7 +72,7 @@ function addFeatures(dogs) {
   document.querySelector("#mainView").appendChild(newDiv);
 }
 
-function addDescription(dogs) {
+function addDescription(profileDog) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("class", "middleDivs");
   let aboutDog = document.createElement("h3");
@@ -76,7 +85,7 @@ function addDescription(dogs) {
   document.querySelector("#mainView").appendChild(newDiv);
 }
 
-function addKennelClub(dogs) {
+function addKennelClub(profileDog) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("class", "middleDivs");
   let title = document.createElement("h3");
@@ -95,7 +104,7 @@ function addKennelClub(dogs) {
   document.querySelector('#mainView').appendChild(newDiv);
 }
 
-function addPedigree(dogs) {
+function addPedigree(profileDog) {
   let newDiv = document.createElement("div");
   newDiv.setAttribute("class", "middleDivs");
   let title = document.createElement("h3");
@@ -115,13 +124,7 @@ function addPedigree(dogs) {
 }
 
 function loadedProfile() {
-  //setProfileDog();
-
-  createProfileTop();
-  addDescription();
-  addFeatures();
-  addKennelClub();
-  addPedigree();
+  setProfileDog();
 }
 
 window.addEventListener("load", loadedProfile)

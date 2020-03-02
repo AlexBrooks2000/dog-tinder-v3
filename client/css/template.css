@@ -41,7 +41,7 @@ body {
 
 .column {
   float: left;
-  padding: 10px;
+  padding: 0.8em;
 }
 
 .column.side {
@@ -58,7 +58,7 @@ body {
   clear: both;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 45em) {
   .column.side, .column.middle {
     width: 100%;
   }
