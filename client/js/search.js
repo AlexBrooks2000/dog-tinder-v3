@@ -24,6 +24,7 @@ async function getDogs() {
   } else {
     console.log("error");
   }
+  console.log(dogs);
 }
 
 function filter(arr, type) {
@@ -105,6 +106,16 @@ function addDogProfile(dogs) {
           email.textContent = "email";
           email.setAttribute("href", "mailto:" + dog.email);
           secondDiv.appendChild(email);
+
+          //add message button
+          const messageBtn = document.createElement("button");
+          messageBtn.textContent = "message";
+          messageBtn.addEventListener("click", function() {
+            sessionStorage.setItem("senderID", "1");
+            sessionStorage.setItem("otherUserId", dog.owner);
+            window.location.href = "messages.html";
+          });
+          secondDiv.appendChild(messageBtn);
 
           //Adds div to the main body
           secondDiv.setAttribute("class", "secondDiv")

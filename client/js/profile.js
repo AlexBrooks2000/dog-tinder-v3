@@ -1,4 +1,4 @@
-async function setProfileDog(){
+async function setProfileDog() {
   const id = sessionStorage.getItem("dogId");
   const response = await fetch(`dogs/${id}`);
   let profileDog = [];

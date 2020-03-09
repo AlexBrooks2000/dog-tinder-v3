@@ -1,0 +1,24 @@
+CREATE TABLE allDogs (
+	id TEXT PRIMARY KEY,
+	image TEXT NOT NULL,
+	name TEXT NOT NULL,
+	breed TEXT NOT NULL,
+	sex TEXT NOT NULL,
+	size TEXT NOT NULL,
+	description TEXT NOT NULL,
+	features TEXT NOT NULL,
+	kennelClub INTEGER NOT NULL,
+	pedigree INTEGER NOT NULL,
+	owner TEXT NOT NULL,
+	avaliable INTEGER NOT NULL,
+	email TEXT NOT NULL
+);
+
+INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
+VALUES ("wby6env6ekb4", "images/pug.jpg", "mike", "pug", "male", "small", "this is a description", "these, are, some, features", 1, 1, "not me", 1, "mmclagain0@fema.gov");
+INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
+VALUES ("bh6rv20bgr6s", "images/lab.jpg", "Susan", "labrador", "female", "large",  "this is a description", "these, are, some, features", 1, 1, "not me", 0, "rlorkings1@reddit.com");
+INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
+VALUES ("6hb2nduyt5csi2", "images/corgi.jpg", "ralph", "corgi", "male", "medium", "this is a description", "these, are, some, features", 1, 1, "me", 1, "this is a description");
+INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
+VALUES ("nf5wmfk64las", "images/chickpea.jpg", "Chickpea", "corgi", "female", "medium", "this is a description", "these, are, some, features", 1, 1, "not me", 0, "rwinslett3@shop-pro.jp");

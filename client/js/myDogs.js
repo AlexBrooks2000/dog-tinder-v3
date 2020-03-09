@@ -1,4 +1,14 @@
-let dogs = [];
+// async function getDogs() {
+//   const owner = "me";
+//   const response = await fetch(`dogs/${owner}`);
+//   let dogs = [];
+//   if (response.ok) {
+//     dogs = await response.json();
+//   } else {
+//     console.log("couldn't fetch from server");
+//   }
+//   console.log(dogs);
+// }
 
 async function getDogs() {
   const response = await fetch('dogs');
@@ -7,10 +17,10 @@ async function getDogs() {
   } else {
     console.log("error");
   }
+  listDogs(dogs);
 }
 
 function listDogs(dogs) {
-  console.log("Look I am working");
   for (const dog of dogs) {
     if (dog.owner === "me") {
       const mainDiv = document.createElement("div");
@@ -41,6 +51,7 @@ function listDogs(dogs) {
   }
 }
 
+
 function addDogButton() {
   const addDog = document.createElement("button");
   addDog.textContent = "Add Dog";
@@ -52,7 +63,7 @@ function addDogButton() {
 
 function loadedDogs() {
   getDogs();
-  listDogs(dogs);
+  // listDogs();
   addDogButton();
 }
 
