@@ -1,23 +1,23 @@
 const express = require('express');
-const uuid = require("uuid-random");
+const uuid = require('uuid-random');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
 app.use(express.static('client'));
 
-let dogs = [{id: "wby6env6ekb4", image: "images/pug.jpg", name: "mike", breed: "pug", sex: "male", size:"small", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: 2, avaliable: true, email: "mmclagain0@fema.gov"},
-{id: "bh6rv20bgr6s", image: "images/lab.jpg", name: "Susan", breed: "labrador", sex: "female", size: "large", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub:true, pedigree: true, owner: 3, avaliable: false, email: "rlorkings1@reddit.com"},
-{id: "6hb2nduyt5csi2", image: "images/corgi.jpg", name: "ralph", breed: "corgi", sex: "male", size: "medium", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: 1, avaliable: true, email: "this is a description"},
-{id: "ngw76vke2b6jg", image: "images/yoda.jpg", name: "Baby Yoda", breed: "unknown", sex: "unknown", size: "small", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: 4, avaliable: false, email: "rwinslett3@shop-pro.jp"},
-{id: "nf5wmfk64las", image: "images/chickpea.jpg", name: "Chickpea", breed: "corgi", sex: "female", size: "medium", description: "this is a description", features: ["these", "are", "some", "features"], kennelClub: true, pedigree: true, owner: 1, avaliable: true, email: "haskham4@lycos.com"}];
+let dogs = [{id: 'wby6env6ekb4', image: 'images/pug.jpg', name: 'mike', breed: 'pug', sex: 'male', size:'small', description: 'this is a description', features: ['these', 'are', 'some', 'features'], kennelClub: true, pedigree: true, owner: 2, avaliable: true, email: 'mmclagain0@fema.gov'},
+{id: 'bh6rv20bgr6s', image: 'images/lab.jpg', name: 'Susan', breed: 'labrador', sex: 'female', size: 'large', description: 'this is a description', features: ['these', 'are', 'some', 'features'], kennelClub:true, pedigree: true, owner: 3, avaliable: false, email: 'rlorkings1@reddit.com'},
+{id: '6hb2nduyt5csi2', image: 'images/corgi.jpg', name: 'ralph', breed: 'corgi', sex: 'male', size: 'medium', description: 'this is a description', features: ['these', 'are', 'some', 'features'], kennelClub: true, pedigree: true, owner: 1, avaliable: true, email: 'this is a description'},
+{id: 'ngw76vke2b6jg', image: 'images/yoda.jpg', name: 'Baby Yoda', breed: 'unknown', sex: 'unknown', size: 'small', description: 'this is a description', features: ['these', 'are', 'some', 'features'], kennelClub: true, pedigree: true, owner: 4, avaliable: false, email: 'rwinslett3@shop-pro.jp'},
+{id: 'nf5wmfk64las', image: 'images/chickpea.jpg', name: 'Chickpea', breed: 'corgi', sex: 'female', size: 'medium', description: 'this is a description', features: ['these', 'are', 'some', 'features'], kennelClub: true, pedigree: true, owner: 1, avaliable: true, email: 'haskham4@lycos.com'}];
 
 let messages =
-[{userIDs: [1, 2], senderID: 1, msg: "this is messaging"},
-{userIDs: [2, 1], senderID: 2, msg: "hello how are you?"},
-{userIDs: [1, 2], senderID: 1, msg: "good thanks yourself"},
-{userIDs: [2, 1], senderID: 2, msg: "is the dog still avaliable?"},
-{userIDs: [2, 1], senderID: 2, msg: "I wanna bread!!!"},
-{userIDs: [1, 3], senderID: 1, msg: "this should not be displayed with others"},
-{userIDs: [3, 1], senderID: 3, msg: "wow thats great"}];
+[{userIDs: [1, 2], senderID: 1, msg: 'this is messaging'},
+{userIDs: [2, 1], senderID: 2, msg: 'hello how are you?'},
+{userIDs: [1, 2], senderID: 1, msg: 'good thanks yourself'},
+{userIDs: [2, 1], senderID: 2, msg: 'is the dog still avaliable?'},
+{userIDs: [2, 1], senderID: 2, msg: 'I wanna bread!!!'},
+{userIDs: [1, 3], senderID: 1, msg: 'this should not be displayed with others'},
+{userIDs: [3, 1], senderID: 3, msg: 'wow thats great'}];
 
 function getDog(id) {
   for (const dog of dogs) {
@@ -113,49 +113,3 @@ app.post('/messages', express.json(), (req, res) => {
 })
 
 app.listen(8080);
-
-// function initDB() {
-//   let db = new sqlite3.Database('sqlite/dogDB.db', sqlite3.OPEN_READWRITE, (err) => {
-//     if (err) {
-//       console.error(err.message);
-//     }
-//     console.log("connected to database");
-//   });
-//   return db;
-//
-//
-// function queryDB(sql, res) {
-//   const db = initDB();
-//   let arr = [];
-//   db.all(sql, (err, rows) => {
-//     if (err) {
-//       throw err;
-//     }
-//     rows.forEach((row) => {
-//       //console.log(row);
-//       arr.push(row);
-//       //console.log(arr);
-//     });
-//   });
-//   console.log(arr);
-//   closeDB(db);
-//   res.json(arr);
-// }
-//
-// function closeDB(db) {
-//   db.close((err) => {
-//     if (err) {
-//       return console.error(err.message);
-//     }
-//     console.log("closed database connection");
-//   });
-// }
-//
-// function getDog(id) {
-//   for (const dog of dogs) {
-//     if (dog.id === id) {
-//       return dog;
-//     }
-//   }
-//   return null;
-// }
