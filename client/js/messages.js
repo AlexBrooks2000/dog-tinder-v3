@@ -5,8 +5,9 @@ const otherUserId = sessionStorage.getItem("otherUserId");
 const el = {};
 
 async function getMessages() {
-  const userIDs = [homeUserID, otherUserId]
-  const response = await fetch(`messages/${userIDs}`);
+  const userIDs = [1, 3];
+  const senderID = 3;
+  const response = await fetch(`messages/${senderID}`);
   let messages;
   if (response.ok) {
     messages = await response.json();

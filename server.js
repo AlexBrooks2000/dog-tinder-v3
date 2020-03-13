@@ -15,7 +15,9 @@ let messages =
 {userIDs: [2, 1], senderID: 2, msg: "hello how are you?"},
 {userIDs: [1, 2], senderID: 1, msg: "good thanks yourself"},
 {userIDs: [2, 1], senderID: 2, msg: "is the dog still avaliable?"},
-{userIDs: [2, 1], senderID: 2, msg: "I wanna bread!!!"}];
+{userIDs: [2, 1], senderID: 2, msg: "I wanna bread!!!"},
+{userIDs: [1, 3], senderID: 1, msg: "this should not be displayed with others"},
+{userIDs: [3, 1], senderID: 3, msg: "wow thats great"}];
 
 function getDog(id) {
   for (const dog of dogs) {
@@ -47,6 +49,16 @@ function getMessages(arr) {
   return gotMessages;
 }
 
+function getTestMessages(id) {
+  let gotMessages = [];
+  for (const message of messages) {
+    if (message.senderID === id) {
+      gotMessages.push(message);
+    }
+  }
+  return gotMessages;
+}
+
 app.get('/dogs', (req, res) => {
   res.json(dogs);
 });
@@ -54,7 +66,7 @@ app.get('/dogs', (req, res) => {
 app.get('/messages/:userIDs', (req, res) => {
   const gotMessages = getMessages(req.params.userIDs);
   res.json(messages);
-})
+});
 
 app.get('/dogs/:id', (req, res) => {
   const dog = getDog(req.params.id);
@@ -64,6 +76,11 @@ app.get('/dogs/:id', (req, res) => {
 app.get('/dogs/:owner', (req, res) => {
   const ownedDogs = getOwnedDogs(req.params.owner);
   res.json(ownedDogs);
+});
+
+app.get('/messages/:senderID', (req, res) => {
+  const gotMessages = getTestMessages(req.params.senderID);
+  res.json(gotMessages);
 });
 
 app.post('/dogs', express.json(), (req, res) => {
