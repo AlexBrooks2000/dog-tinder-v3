@@ -17,7 +17,7 @@ async function getDogs() {
   if (sex === 'any') {
     response = await fetch('dogs');
   } else {
-    response = await fetch(`dogs/${sex}`)
+    response = await fetch(`dogs/sex/${sex}`)
   }
   if (response.ok) {
     dogs = await response.json();
@@ -27,12 +27,22 @@ async function getDogs() {
   addDogProfile(dogs);
 }
 
-
-
 function addDogFeature(feature, featureName, div) {
   const addFeature = document.createElement('p');
   addFeature.textContent = `${featureName}: ${feature}`;
   div.appendChild(addFeature);
+}
+
+function binaryToString(bin) {
+  let str = '';
+  if (bin === 1) {
+    str = 'yes';
+  } else if (bin === 0) {
+    str = 'no';
+  } else {
+    str = 'error';
+  }
+  return str;
 }
 
 function addDogProfile(dogs) {
@@ -51,16 +61,17 @@ function addDogProfile(dogs) {
     addDogFeature(dog.name, "name", secondDiv);
     addDogFeature(dog.breed, "breed", secondDiv);
     addDogFeature(dog.sex, "sex", secondDiv);
-    addDogFeature(dog.avaliable, "avaliable for breeding", secondDiv);
 
-    const butPro = document.createElement('button');
-    butPro.textContent = 'view profile';
-    butPro.addEventListener('click', function () {
-      console.log(dog.id);
-      sessionStorage.setItem('dogId', dog.id);
-      window.location.href = 'profile.html';
-    });
-    secondDiv.appendChild(butPro);
+    const avaliable = binaryToString(dog.avaliable);
+    addDogFeature(avaliable, "avaliable for breeding", secondDiv);
+
+    const linkProfile = document.createElement('a');
+    linkProfile.textContent = 'view profile';
+    linkProfile.href = `/profile.html#${dog.id}`;
+    secondDiv.appendChild(linkProfile);
+
+    const addbreak = document.createElement('br');
+    secondDiv.appendChild(addbreak);
 
     const email = document.createElement('a');
     email.textContent = 'email';

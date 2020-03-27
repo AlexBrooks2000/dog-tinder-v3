@@ -1,3 +1,4 @@
+'use strict';
 const sqlite = require('sqlite');
 const uuid = require('uuid-random');
 
@@ -23,6 +24,10 @@ async function queryDogOwner(owner) {
   return db.all(`select * from dogs where owner = ${owner} `);
 }
 
+async function queryDogId(id) {
+  const db = await dbConn;
+  return db.get(`select * from dogs where id = "${id}"`);
+}
 async function insertDog(image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email) {
   const db = await dbConn;
   const id = uuid();
@@ -35,4 +40,5 @@ module.exports = {
   queryDogSex,
   queryDogOwner,
   insertDog,
+  queryDogId,
 };

@@ -1,5 +1,6 @@
 async function getDogs() {
-  const response = await fetch('dogs');
+  const owner = 1;
+  const response = await fetch(`dogs/owner/${owner}`);
   let dogs;
   if (response.ok) {
     dogs = await response.json();
@@ -17,7 +18,6 @@ function createNewElement(value, sideDiv) {
 
 function listDogs(dogs) {
   for (const dog of dogs) {
-    if (dog.owner === 1) {
       const mainDiv = document.createElement('div');
       const sideDiv = document.createElement('div');
 
@@ -32,11 +32,16 @@ function listDogs(dogs) {
       createNewElement(dog.breed, sideDiv);
       createNewElement(dog.sex, sideDiv);
 
+      const profile = document.createElement('a');
+      profile.textContent = 'profile';
+      profile.href = `/profile.html#${dog.id}`;
+      sideDiv.appendChild(profile);
+
       sideDiv.setAttribute('class', 'secondDiv');
       mainDiv.appendChild(sideDiv);
       mainDiv.setAttribute('class', 'profileView');
+
       document.querySelector('#mainView').appendChild(mainDiv);
-    }
   }
 }
 

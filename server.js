@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const app = express();
 const db = require('./database.js');
@@ -14,6 +15,12 @@ async function getDogSex(req, res) {
 
 async function getDogOwner(req, res) {
   const result = await db.queryDogOwner(req.params.owner);
+  res.json(result);
+}
+
+async function getDogId(req, res) {
+  const result = await db.queryDogId(req.params.id);
+  res.json(result);
 }
 
 async function addDog(req, res) {
@@ -30,8 +37,9 @@ function asyncWrap(f) {
 }
 
 app.get('/dogs', asyncWrap(getAllDogs));
-app.get('/dogs/:sex', asyncWrap(getDogSex));
-app.get('/dogs/:owner', asyncWrap(getDogOwner));
+app.get('/dogs/sex/:sex', asyncWrap(getDogSex));
+app.get('/dogs/owner/:owner', asyncWrap(getDogOwner));
+app.get('/dogs/id/:id', asyncWrap(getDogId));
 app.post('/dogs', express.json(), asyncWrap(addDog));
 
 app.listen(8080);

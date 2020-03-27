@@ -1,3 +1,9 @@
+#dogImg {
+  width: 10em;
+  height: 10em;
+  margin: 1em;
+}
+
 #kennelClub {
   width: 80%;
   height: auto;

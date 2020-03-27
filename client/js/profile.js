@@ -1,130 +1,84 @@
-async function setProfileDog() {
-  const id = sessionStorage.getItem('dogId');
-  const response = await fetch(`dogs/${id}`);
-  let profileDog = [];
+const el = {};
+
+function setElements() {
+  el.proPic = document.querySelector('#dogImg');
+  el.name = document.querySelector('#name');
+  el.age = document.querySelector('#age');
+  el.breed = document.querySelector('#breed');
+  el.sex = document.querySelector('#sex');
+  el.email = document.querySelector('#email');
+  el.about = document.querySelector('#about');
+  el.description = document.querySelector('#description');
+  el.features = document.querySelector('#features');
+  el.kennelClub = document.querySelector('#kennelClub');
+  el.pedigree = document.querySelector('#pedigree');
+}
+
+async function getDog() {
+  const id = window.location.hash.substring(1);
+  const response = await fetch(`dogs/id/${id}`);
+  let dog;
   if (response.ok) {
-    profileDog = await response.json();
+    dog = await response.json();
   } else {
-    console.log('could not fetch from server');
+    console.log('could not get dogs');
   }
-  createProfileTop(profileDog);
-  addDescription(profileDog);
-  addFeatures(profileDog);
-  addKennelClub(profileDog);
-  addPedigree(profileDog);
+  addTitle(dog.image, dog.name, dog.dob, dog.breed, dog.sex, dog.email);
+  addDescription(dog.name, dog.description);
+  addFeatures(dog.features);
+  addImage(dog.kennelClub, el.kennelClub, 'images/kennelClub.png');
+  addImage(dog.pedigree, el.pedigree, 'images/pedigree.png');
 }
 
-function createProfileTop(profileDog) {
-  console.log('this is running');
-  const newDiv = document.createElement('div');
-  const secondDiv = document.createElement('div');
-  const newImg = document.createElement('IMG');
+function findAge(dob) {
+  const diff_ms = Date.now() - dob.getTime();
+  const age_dt = new Date(diff_ms);
 
-  newImg.setAttribute('src', profileDog.image);
-  newImg.setAttribute('class', 'profilePic');
-  newDiv.appendChild(newImg);
-
-  const name = document.createElement('h2');
-  name.textContent = profileDog.name;
-  name.setAttribute('class', 'dogName');
-  secondDiv.appendChild(name);
-
-  const breed = document.createElement('p');
-  breed.textContent = profileDog.breed;
-  breed.setAttribute('class', 'dogBreed');
-  secondDiv.appendChild(breed);
-
-  const sex = document.createElement('p');
-  sex.textContent = profileDog.sex;
-  sex.setAttribute('class', 'dogSex');
-  secondDiv.appendChild(sex);
-
-  const email = document.createElement('a');
-  email.textContent = 'email';
-  email.setAttribute('href', 'mailto:' + profileDog.email);
-  secondDiv.appendChild(email);
-  // let newButton = document.createElement('button');
-  // newButton.textContent = 'Chat Now!';
-  // newButton.setAttribute('id', 'chatButton')
-  // secondDiv.appendChild(newButton);
-
-  newDiv.setAttribute('class', 'displayViews');
-  secondDiv.setAttribute('class', 'nameDiv');
-  newDiv.appendChild(secondDiv);
-  document.querySelector('#mainView').appendChild(newDiv);
+  return Math.abs(age_dt.getUTCFullYear() - 1970);
 }
 
-function addFeatures(profileDog) {
-  const newDiv = document.createElement('div');
-  newDiv.setAttribute('class', 'middleDivs');
-  const featuresTitle = document.createElement('h3');
-  featuresTitle.textContent = 'Features';
-  featuresTitle.setAttribute('class', 'titles');
-  newDiv.appendChild(featuresTitle);
-  const newNav = document.createElement('nav');
-  for (const feature of profileDog.features) {
-    const newFeature = document.createElement('li');
-    newFeature.textContent = feature;
-    newNav.appendChild(newFeature);
+function addTitle(image, name, dob, breed, sex, email) {
+  const age = findAge(new Date(dob));
+  el.proPic.setAttribute('src', image);
+  el.name.textContent = name;
+  el.age.textContent = age;
+  el.breed.textContent = breed;
+  el.sex.textContent = sex;
+  el.email.setAttribute('href', `mailto:${email}`);
+}
+
+function addDescription(name, description) {
+  el.about.textContent = `About ${name}`;
+  el.description.textContent = description;
+}
+
+function sqliteToArr(str) {
+  const arr = str.split('|');
+  return arr;
+}
+
+function addFeatures(dogFeatures) {
+  const features = sqliteToArr(dogFeatures);
+  for (const feature of features) {
+    const list = document.createElement('li');
+    list.textContent = feature;
+    el.features.appendChild(list);
   }
-  newDiv.appendChild(newNav);
-
-  document.querySelector('#mainView').appendChild(newDiv);
 }
 
-function addDescription(profileDog) {
-  const newDiv = document.createElement('div');
-  newDiv.setAttribute('class', 'middleDivs');
-  const aboutDog = document.createElement('h3');
-  aboutDog.textContent = 'About ' + profileDog.name;
-  aboutDog.setAttribute('class', 'titles');
-  newDiv.appendChild(aboutDog);
-  const newDes = document.createElement('p');
-  newDes.textContent = profileDog.description;
-  newDiv.appendChild(newDes);
-  document.querySelector('#mainView').appendChild(newDiv);
-}
-
-function addKennelClub(profileDog) {
-  const newDiv = document.createElement('div');
-  newDiv.setAttribute('class', 'middleDivs');
-  const title = document.createElement('h3');
-  title.textContent = 'Kennel Club';
-  title.setAttribute('class', 'titles');
-  newDiv.appendChild(title);
-
-  const kennelImg = document.createElement('IMG');
-  kennelImg.setAttribute('id', 'kennelClub');
-  if (profileDog.kennelClub === true) {
-    kennelImg.setAttribute('src', 'images/kennelClub.png');
+function addImage(int, e, img) {
+  if (int === 1) {
+    e.setAttribute('src', img);
+  } else if (int === 0) {
+    e.setAttribute('src', 'images/RedCross.png');
   } else {
-    kennelImg.setAttribute('src', 'images/RedCross.png');
+    console.log('error, int is not 0 or 1');
   }
-  newDiv.appendChild(kennelImg);
-  document.querySelector('#mainView').appendChild(newDiv);
-}
-
-function addPedigree(profileDog) {
-  const newDiv = document.createElement('div');
-  newDiv.setAttribute('class', 'middleDivs');
-  const title = document.createElement('h3');
-  title.textContent = 'Pedigree';
-  title.setAttribute('class', 'titles');
-  newDiv.appendChild(title);
-
-  const pedigreeImg = document.createElement('IMG');
-  pedigreeImg.setAttribute('id', 'pedigree');
-  if (profileDog.pedigree === true) {
-    pedigreeImg.setAttribute('src', 'images/pedigree.png');
-  } else {
-    pedigreeImg.setAttribute('src', 'images/RedCross.png');
-  }
-  newDiv.appendChild(pedigreeImg);
-  document.querySelector('#mainView').appendChild(newDiv);
 }
 
 function loadedProfile() {
-  setProfileDog();
+  setElements();
+  getDog();
 }
 
 window.addEventListener('load', loadedProfile);
