@@ -73,10 +73,16 @@ function addDogProfile(dogs) {
     const addbreak = document.createElement('br');
     secondDiv.appendChild(addbreak);
 
+    const msg = document.createElement('a');
+    msg.textContent = 'message';
+    msg.href = `messages.html#${dog.owner}`;
+    secondDiv.appendChild(msg);
+
     const email = document.createElement('a');
     email.textContent = 'email';
     email.setAttribute('href', 'mailto:' + dog.email);
     secondDiv.appendChild(email);
+
 
     secondDiv.setAttribute('class', 'secondDiv');
     newDiv.appendChild(secondDiv);
