@@ -28,11 +28,18 @@ async function queryDogId(id) {
   const db = await dbConn;
   return db.get(`select * from dogs where id = "${id}"`);
 }
-async function insertDog(image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email) {
+async function insertDog(image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email, dob) {
   const db = await dbConn;
   const id = uuid();
-  await db.run(`insert into dogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email) values ("${id}", "${image}", "${name}", "${breed}", "${sex}", "${size}", "${description}", "${features}", ${kennelClub}, ${pedigree}, ${owner}, ${avaliable}, "${email}")`);
+  await db.run(`insert into dogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email, dob) values ("${id}", "${image}", "${name}", "${breed}", "${sex}", "${size}", "${description}", "${features}", ${kennelClub}, ${pedigree}, ${owner}, ${avaliable}, "${email}", "${dob}")`);
   return queryAllDogs();
+}
+
+async function updateDogDB(dog) {
+  console.log(dog);
+  const db = await dbConn;
+  await db.run(`update dogs set image = "${dog.image}", name = "${dog.name}", breed = "${dog.breed}", sex = "${dog.sex}", size = "${dog.size}", description = "${dog.description}", features = "${dog.features}", kennelClub = ${dog.kennelClub}, pedigree = ${dog.pedigree}, avaliable = ${dog.avaliable}, email = "${dog.email}", dob = "${dog.dob}" where id = "${dog.id}"`);
+  return queryDogId(dog.id);
 }
 
 module.exports = {
@@ -41,4 +48,5 @@ module.exports = {
   queryDogOwner,
   insertDog,
   queryDogId,
+  updateDogDB,
 };

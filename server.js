@@ -24,10 +24,14 @@ async function getDogId(req, res) {
 }
 
 async function addDog(req, res) {
-  const input = await db.insertDog(req.body.image, req.body.name, req.body.breed, req.body.sex, req.body.size, req.body.description, req.body.features, req.body.kennelClub, req.body.pedigree, req.body.owner, req.body.avaliable, req.body.email);
+  const input = await db.insertDog(req.body.image, req.body.name, req.body.breed, req.body.sex, req.body.size, req.body.description, req.body.features, req.body.kennelClub, req.body.pedigree, req.body.owner, req.body.avaliable, req.body.email, req.body.dob);
   res.json(input);
 }
 
+async function updateDog(req, res) {
+  const dog = await db.updateDogDB(req.body);
+  res.json(dog);
+}
 
 function asyncWrap(f) {
   return (req, res, next) => {
@@ -40,6 +44,7 @@ app.get('/dogs', asyncWrap(getAllDogs));
 app.get('/dogs/sex/:sex', asyncWrap(getDogSex));
 app.get('/dogs/owner/:owner', asyncWrap(getDogOwner));
 app.get('/dogs/id/:id', asyncWrap(getDogId));
+app.put('/dogs/id/:id', express.json(), asyncWrap(updateDog));
 app.post('/dogs', express.json(), asyncWrap(addDog));
 
 app.listen(8080);

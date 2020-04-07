@@ -16,6 +16,11 @@ function createNewElement(value, sideDiv) {
   sideDiv.appendChild(el);
 }
 
+function addBreak(div) {
+  const addBreak = document.createElement('br');
+  div.appendChild(addBreak);
+}
+
 function listDogs(dogs) {
   for (const dog of dogs) {
       const mainDiv = document.createElement('div');
@@ -36,6 +41,13 @@ function listDogs(dogs) {
       profile.textContent = 'profile';
       profile.href = `/profile.html#${dog.id}`;
       sideDiv.appendChild(profile);
+
+      addBreak(sideDiv);
+
+      const edit = document.createElement('a');
+      edit.textContent = 'edit profile';
+      edit.href = `/editProfile.html#${dog.id}`;
+      sideDiv.appendChild(edit);
 
       sideDiv.setAttribute('class', 'secondDiv');
       mainDiv.appendChild(sideDiv);

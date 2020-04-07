@@ -1,5 +1,6 @@
 class Dog {
-  constructor(image, name, breed, sex, size, description, features, kennelClub, pedigree, avaliable, email, owner, dob) {
+  constructor(id, image, name, breed, sex, size, description, features, kennelClub, pedigree, avaliable, email, owner, dob) {
+    this.id = id;
     this.image = image;
     this.name = name;
     this.breed = breed;
@@ -31,10 +32,50 @@ function setElements() {
   el.pedigree = document.querySelector('#dogPedigree');
   el.avaliable = document.querySelector('#avaliable');
   el.email = document.querySelector('#email');
-  el.dob = document.querySelector('#dob');
   el.featuresBtn = document.querySelector('#featuresBtn');
-  el.addBtn = document.querySelector('#addBtn');
+  el.editBtn = document.querySelector('#editBtn');
   el.dob = document.querySelector('#dob');
+}
+
+async function getDog() {
+  const id = window.location.hash.substring(1);
+  const response = await fetch(`dogs/id/${id}`);
+  let dog;
+  if (response.ok) {
+    dog = await response.json();
+  } else {
+    console.log('could not get dogs');
+  }
+  setValues(dog);
+}
+
+function correctDate(date1) {
+  const dateArr = date1.split('/');
+  const date2 = `${dateArr[0]}-${dateArr[1]}-${dateArr[2]}`;
+  return date2;
+}
+
+function setValues(dog) {
+  el.proPic.value = dog.image;
+  el.name.value = dog.name;
+  el.breed.value = dog.breed;
+  el.description.value = dog.description;
+  el.email.value = dog.email;
+  el.sex.vale = dog.sex;
+  el.dob.value = correctDate(dog.dob);
+  el.kennelClub = binaryToString(dog.kennelClub);
+  el.pedigree = binaryToString(dog.pedigree);
+  el.avaliable = binaryToString(dog.avaliable);
+  setFeatures(featuresToArr(dog.features));
+}
+
+function setFeatures(features) {
+  for (let i = 0; i < features.length; i++) {
+    el.features[i].value = features[i];
+    if (i !== features.length -1) {
+      addField();
+    }
+  }
 }
 
 function addField() {
@@ -42,6 +83,22 @@ function addField() {
   newField.setAttribute('class', 'features');
   const addBreak = document.createElement('br');
   el.featuresDiv.append(newField, addBreak);
+}
+
+function featuresToArr(string) {
+  return string.split('|');
+}
+
+function binaryToString(bin) {
+  let retVal;
+  if (bin === 0) {
+    retVal = 'no';
+  } else if (bin === 1) {
+    retVal = 'yes';
+  } else {
+    console.log('value not 1 or 0');
+  }
+  return retVal;
 }
 
 function binaryTF(value) {
@@ -65,6 +122,7 @@ function convertFeatures(featureEl) {
 }
 
 function createDogobject() {
+  const id = window.location.hash.substring(1);
   const features = convertFeatures(el.features);
   const getKennelClub = binaryTF(el.kennelClub.value);
   const getPedigree = binaryTF(el.pedigree.value);
@@ -72,34 +130,34 @@ function createDogobject() {
   const owner = 1;
 
 
-  const newDog = new Dog(el.proPic.value, el.name.value, el.breed.value, el.sex.value, el.size.value, el.description.value, features, getKennelClub, getPedigree, getAvaliable, el.email.value, owner, el.dob.value);
+  const newDog = new Dog(id, el.proPic.value, el.name.value, el.breed.value, el.sex.value, el.size.value, el.description.value, features, getKennelClub, getPedigree, getAvaliable, el.email.value, owner, el.dob.value);
 
   postToServer(newDog);
 }
 
-async function postToServer(newDog) {
-  console.log(newDog);
-  const response = await fetch('dogs', {
-    method: 'POST',
+async function postToServer(dog) {
+  const response = await fetch(`dogs/id/${dog.id}`, {
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newDog),
+    body: JSON.stringify(dog),
   });
 
   if (response.ok) {
-    console.log('posted to the server');
+    console.log('dog has been updated successfully');
   } else {
-    console.log('could not post to server');
+    console.log('error updating');
   }
 }
 
 function addEventListeners() {
+  el.editBtn.addEventListener('click', createDogobject)
   el.featuresBtn.addEventListener('click', addField);
-  el.addBtn.addEventListener('click', createDogobject);
 }
 
-function loadAddDogs() {
+function loadedEdit() {
   setElements();
+  getDog();
   addEventListeners();
 }
 
-window.addEventListener('load', loadAddDogs);
+window.addEventListener('load', loadedEdit);
