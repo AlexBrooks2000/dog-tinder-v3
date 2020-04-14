@@ -40,7 +40,7 @@ done so that the application is more useable when the screen is made smaller and
 At the top right on the screen, there is a message saying 'welcome joe blogs' and a button with 'log out. At the moment it isn't usable but at a later date will allow
 the user to log in and out of an account.
 
-##Unfinished and future work
+## Unfinished and future work
 
 * Improvements in design. Make each element more clear and usable and making sure nothing is coming out of any cards or elements and overlapping.
 * allow the user to upload images of their dog instead of providing a link to an image.
