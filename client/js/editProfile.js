@@ -37,6 +37,8 @@ function setElements() {
   el.dob = document.querySelector('#dob');
 }
 
+console.log(window.location.hash.substring(1));
+
 async function getDog() {
   const id = window.location.hash.substring(1);
   const response = await fetch(`dogs/id/${id}`);
@@ -72,7 +74,7 @@ function setValues(dog) {
 function setFeatures(features) {
   for (let i = 0; i < features.length; i++) {
     el.features[i].value = features[i];
-    if (i !== features.length -1) {
+    if (i !== features.length - 1) {
       addField();
     }
   }
@@ -105,10 +107,10 @@ function binaryTF(value) {
   let retval;
   if (value === 'yes') {
     retval = 1;
-  } else if (value == 'no') {
+  } else if (value === 'no') {
     retval = 0;
   } else {
-    retVal = 'error';
+    retval = 'error';
   }
   return retval;
 }
@@ -129,7 +131,7 @@ function createDogobject() {
   const getAvaliable = binaryTF(el.pedigree.value);
   const owner = 1;
 
-
+  console.log(id);
   const newDog = new Dog(id, el.proPic.value, el.name.value, el.breed.value, el.sex.value, el.size.value, el.description.value, features, getKennelClub, getPedigree, getAvaliable, el.email.value, owner, el.dob.value);
 
   postToServer(newDog);
@@ -150,7 +152,7 @@ async function postToServer(dog) {
 }
 
 function addEventListeners() {
-  el.editBtn.addEventListener('click', createDogobject)
+  el.editBtn.addEventListener('click', createDogobject);
   el.featuresBtn.addEventListener('click', addField);
 }
 

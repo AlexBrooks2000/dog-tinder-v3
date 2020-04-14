@@ -23,37 +23,37 @@ function addBreak(div) {
 
 function listDogs(dogs) {
   for (const dog of dogs) {
-      const mainDiv = document.createElement('div');
-      const sideDiv = document.createElement('div');
+    const mainDiv = document.createElement('div');
+    const sideDiv = document.createElement('div');
 
-      const newImg = document.createElement('img');
-      newImg.setAttribute('src', dog.image);
-      newImg.setAttribute('width', '100em');
-      newImg.setAttribute('height', '140em');
-      newImg.setAttribute('class', 'dogImage');
-      mainDiv.appendChild(newImg);
+    const newImg = document.createElement('img');
+    newImg.setAttribute('src', dog.image);
+    newImg.setAttribute('width', '100em');
+    newImg.setAttribute('height', '140em');
+    newImg.setAttribute('class', 'dogImage');
+    mainDiv.appendChild(newImg);
 
-      createNewElement(dog.name, sideDiv);
-      createNewElement(dog.breed, sideDiv);
-      createNewElement(dog.sex, sideDiv);
+    createNewElement(dog.name, sideDiv);
+    createNewElement(dog.breed, sideDiv);
+    createNewElement(dog.sex, sideDiv);
 
-      const profile = document.createElement('a');
-      profile.textContent = 'profile';
-      profile.href = `/profile.html#${dog.id}`;
-      sideDiv.appendChild(profile);
+    const profile = document.createElement('a');
+    profile.textContent = 'profile';
+    profile.href = `/profile.html#${dog.id}`;
+    sideDiv.appendChild(profile);
 
-      addBreak(sideDiv);
+    addBreak(sideDiv);
 
-      const edit = document.createElement('a');
-      edit.textContent = 'edit profile';
-      edit.href = `/editProfile.html#${dog.id}`;
-      sideDiv.appendChild(edit);
+    const edit = document.createElement('a');
+    edit.textContent = 'edit profile';
+    edit.href = `/editProfile.html#${dog.id}`;
+    sideDiv.appendChild(edit);
 
-      sideDiv.setAttribute('class', 'secondDiv');
-      mainDiv.appendChild(sideDiv);
-      mainDiv.setAttribute('class', 'profileView');
+    sideDiv.setAttribute('class', 'secondDiv');
+    mainDiv.appendChild(sideDiv);
+    mainDiv.setAttribute('class', 'profileView');
 
-      document.querySelector('#mainView').appendChild(mainDiv);
+    document.querySelector('#mainView').appendChild(mainDiv);
   }
 }
 

@@ -36,13 +36,13 @@ async function sendMessage() {
   const payload = {
     sender: sender,
     reciever: reciever,
-    msg: el.inputMsg.value
+    msg: el.inputMsg.value,
   };
 
   const response = await fetch('/msgs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   loadMessages();
 }

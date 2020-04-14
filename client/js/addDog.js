@@ -48,10 +48,10 @@ function binaryTF(value) {
   let retval;
   if (value === 'yes') {
     retval = 1;
-  } else if (value == 'no') {
+  } else if (value === 'no') {
     retval = 0;
   } else {
-    retVal = 'error';
+    retval = 'error';
   }
   return retval;
 }

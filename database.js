@@ -3,7 +3,7 @@ const sqlite = require('sqlite');
 const uuid = require('uuid-random');
 
 async function initDb() {
-  const db = await sqlite.open('sqlite/dogDB.db', { verbose: true});
+  const db = await sqlite.open('sqlite/dogDB.db', { verbose: true });
   return db;
 }
 
@@ -36,8 +36,8 @@ async function insertDog(image, name, breed, sex, size, description, features, k
 }
 
 async function updateDogDB(dog) {
-  console.log(dog);
   const db = await dbConn;
+  console.log(dog.id);
   await db.run(`update dogs set image = "${dog.image}", name = "${dog.name}", breed = "${dog.breed}", sex = "${dog.sex}", size = "${dog.size}", description = "${dog.description}", features = "${dog.features}", kennelClub = ${dog.kennelClub}, pedigree = ${dog.pedigree}, avaliable = ${dog.avaliable}, email = "${dog.email}", dob = "${dog.dob}" where id = "${dog.id}"`);
   return queryDogId(dog.id);
 }

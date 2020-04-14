@@ -1,5 +1,7 @@
 const el = {};
 
+const user = 1;
+
 function setElements() {
   el.sexFilter = document.querySelector('#sexFilter');
   el.filterBtn = document.querySelector('#filterBtn');
@@ -17,7 +19,7 @@ async function getDogs() {
   if (sex === 'any') {
     response = await fetch('dogs');
   } else {
-    response = await fetch(`dogs/sex/${sex}`)
+    response = await fetch(`dogs/sex/${sex}`);
   }
   if (response.ok) {
     dogs = await response.json();
@@ -51,19 +53,19 @@ function addDogProfile(dogs) {
     const newDiv = document.createElement('div');
     const secondDiv = document.createElement('div');
 
-    const newImg = document.createElement("IMG");
+    const newImg = document.createElement('img');
     newImg.setAttribute('src', dog.image);
     newImg.setAttribute('width', '100em');
     newImg.setAttribute('height', '140em');
     newImg.setAttribute('class', 'dogImage');
     newDiv.appendChild(newImg);
 
-    addDogFeature(dog.name, "name", secondDiv);
-    addDogFeature(dog.breed, "breed", secondDiv);
-    addDogFeature(dog.sex, "sex", secondDiv);
+    addDogFeature(dog.name, 'name', secondDiv);
+    addDogFeature(dog.breed, 'breed', secondDiv);
+    addDogFeature(dog.sex, 'sex', secondDiv);
 
     const avaliable = binaryToString(dog.avaliable);
-    addDogFeature(avaliable, "avaliable for breeding", secondDiv);
+    addDogFeature(avaliable, 'avaliable for breeding', secondDiv);
 
     const linkProfile = document.createElement('a');
     linkProfile.textContent = 'view profile';
@@ -73,27 +75,28 @@ function addDogProfile(dogs) {
     const addbreak = document.createElement('br');
     secondDiv.appendChild(addbreak);
 
-    const msg = document.createElement('a');
-    msg.textContent = 'message';
-    msg.href = `messages.html#${dog.owner}`;
-    secondDiv.appendChild(msg);
+    console.log(dog.owner);
+    if (dog.owner !== user) {
+      const msg = document.createElement('a');
+      msg.textContent = 'message';
+      msg.href = `messages.html#${dog.owner}`;
+      secondDiv.appendChild(msg);
+    }
 
     const email = document.createElement('a');
     email.textContent = 'email';
     email.setAttribute('href', 'mailto:' + dog.email);
     secondDiv.appendChild(email);
 
-
     secondDiv.setAttribute('class', 'secondDiv');
     newDiv.appendChild(secondDiv);
     newDiv.setAttribute('class', 'profileView');
     el.secondView.appendChild(newDiv);
   }
-
 }
 
 function addEventListeners() {
-  el.filterBtn.addEventListener("click", getDogs);
+  el.filterBtn.addEventListener('click', getDogs);
 }
 
 function loadedSearch() {
@@ -101,4 +104,4 @@ function loadedSearch() {
   addEventListeners();
 }
 
-window.addEventListener("load", loadedSearch);
+window.addEventListener('load', loadedSearch);
