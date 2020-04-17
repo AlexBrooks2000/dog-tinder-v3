@@ -64,6 +64,7 @@ async function postMsg(req, res) {
   res.json(msgs);
 }
 
+// function retrieved from https://github.com/portsoc/staged-simple-message-board/blob/master/stages/8/svr.js
 function asyncWrap(f) {
   return (req, res, next) => {
     Promise.resolve(f(req, res, next))

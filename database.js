@@ -2,6 +2,7 @@
 const sqlite = require('sqlite');
 const uuid = require('uuid-random');
 
+// function retrieved from https://github.com/portsoc/staged-simple-message-board/blob/master/stages/8/messageboard.js
 async function initDb() {
   const db = await sqlite.open('sqlite/dogDB.db', { verbose: true });
   return db;
@@ -37,8 +38,8 @@ async function insertDog(image, name, breed, sex, size, description, features, k
 
 async function updateDogDB(dog) {
   const db = await dbConn;
-  console.log(dog.id);
-  await db.run(`update dogs set image = "${dog.image}", name = "${dog.name}", breed = "${dog.breed}", sex = "${dog.sex}", size = "${dog.size}", description = "${dog.description}", features = "${dog.features}", kennelClub = ${dog.kennelClub}, pedigree = ${dog.pedigree}, avaliable = ${dog.avaliable}, email = "${dog.email}", dob = "${dog.dob}" where id = "${dog.id}"`);
+  const update = await db.run('update dogs set image = ?, name = ?, breed = ?, sex = ?, size = ?, description = ?, features = ?, kennelClub = ?, pedigree = ?, avaliable = ?, dob = ? where id = ?', [dog.image, dog.name, dog.breed, dog.sex, dog.size, dog.description, dog.features, dog.kennelClub, dog.pedigree, dog.avaliable, dog.dob, dog.id]);
+  if (update.changes === 0) throw new Error('dog not found :(');
   return queryDogId(dog.id);
 }
 

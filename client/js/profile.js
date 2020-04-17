@@ -32,8 +32,9 @@ async function getDog() {
   addImage(dog.pedigree, el.pedigree, 'images/pedigree.png');
 }
 
-function findAge(dob) {
-  const diff = Date.now() - dob.getTime();
+// function retrieved from https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
+function findAge(birthday) {
+  const diff = Date.now() - birthday.getTime();
   const age = new Date(diff);
 
   return Math.abs(age.getUTCFullYear() - 1970);
