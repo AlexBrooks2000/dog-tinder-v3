@@ -1,7 +1,7 @@
 const el = {};
 
-const sender = '1';
-const reciever = window.location.hash.substring(1);
+const sender = 1;
+const receiver = window.location.hash.substring(1);
 
 function setElements() {
   el.msgs = document.querySelector('#msgs');
@@ -14,7 +14,7 @@ function clearChat() {
 }
 
 async function loadMessages() {
-  const response = await fetch(`/msgs/${sender}/${reciever}`);
+  const response = await fetch(`/msgs/${sender}/${receiver}`);
   const messages = await response.json();
   displayMsgs(messages);
 }
@@ -35,7 +35,7 @@ function displayMsgs(messages) {
 async function sendMessage() {
   const payload = {
     sender: sender,
-    reciever: reciever,
+    receiver: receiver,
     msg: el.inputMsg.value,
   };
 

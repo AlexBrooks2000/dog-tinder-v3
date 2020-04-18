@@ -64,6 +64,17 @@ async function updateDogDB(dog, file) {
   return queryDogId(dog.id);
 }
 
+async function queryMsgs(userID1, userID2) {
+  const db = await dbConn;
+  return db.all(`select * from msgs where sender in (${userID1}, ${userID2}) and receiver in (${userID1}, ${userID2})`);
+}
+
+async function insertMsg(sender, receiver, msg) {
+  const db = await dbConn;
+  const input = db.run('insert into msgs values (?, ?, ?)', [sender, receiver, msg]);
+  return queryMsgs(sender, receiver);
+}
+
 module.exports = {
   queryAllDogs,
   queryDogSex,
@@ -71,4 +82,6 @@ module.exports = {
   insertDog,
   queryDogId,
   updateDogDB,
+  queryMsgs,
+  insertMsg,
 };

@@ -14,15 +14,6 @@ const uploader = multer({
   },
 });
 
-const msgs = [
-  { sender: '1', reciever: '2', msg: 'hi there' },
-  { sender: '2', reciever: '1', msg: 'you good?' },
-  { sender: '3', reciever: '1', msg: 'hi is the dog avaliable for breeding?' },
-  { sender: '1', reciever: '3', msg: 'yes it is' },
-  { sender: '1', reciever: '4', msg: 'hello there' },
-  { sender: '4', reciever: '1', msg: 'general Kanobi' },
-];
-
 async function getAllDogs(req, res) {
   res.json(await db.queryAllDogs());
 }
@@ -53,25 +44,13 @@ async function updateDog(req, res) {
 }
 
 async function getMsgs(req, res) {
-  const gotMsgs = [];
-  for (const msg of msgs) {
-    if (msg.sender === req.params.userID1 || msg.sender === req.params.userID2) {
-      if (msg.reciever === req.params.userID1 || msg.reciever === req.params.userID2) {
-        gotMsgs.push(msg);
-      }
-    }
-  }
-  res.send(gotMsgs);
+  const results = await db.queryMsgs(req.params.userID1, req.params. userID2);
+  res.json(results);
 }
 
 async function postMsg(req, res) {
-  const newMsg = {
-    sender: req.body.sender,
-    reciever: req.body.reciever,
-    msg: req.body.msg,
-  };
-  msgs.push(newMsg);
-  res.json(msgs);
+  const input = await db.insertMsg(req.body.sender, req.body.receiver, req.body.msg);
+  res.json(input);
 }
 
 // function retrieved from https://github.com/portsoc/staged-simple-message-board/blob/master/stages/8/svr.js
@@ -86,9 +65,9 @@ app.get('/dogs', asyncWrap(getAllDogs));
 app.get('/dogs/sex/:sex', asyncWrap(getDogSex));
 app.get('/dogs/owner/:owner', asyncWrap(getDogOwner));
 app.get('/dogs/id/:id', asyncWrap(getDogId));
-app.get('/msgs/:userID1/:userID2', getMsgs);
+app.get('/msgs/:userID1/:userID2', asyncWrap(getMsgs));
 app.put('/dogs/id/:id', uploader.single('image'), express.json(), asyncWrap(updateDog));
 app.post('/dogs', uploader.single('image'), express.json(), asyncWrap(addDog));
-app.post('/msgs', express.json(), postMsg);
+app.post('/msgs', express.json(), asyncWrap(postMsg));
 
 app.listen(8080);

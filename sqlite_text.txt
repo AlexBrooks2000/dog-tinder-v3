@@ -14,6 +14,19 @@ CREATE TABLE allDogs (
 	email TEXT NOT NULL
 );
 
+CREATE TABLE msgs (
+	sender INTEGER NOT NULL,
+	receiver INTEGER NOT NULL,
+	msg TEXT NOT NULL
+);
+
+INSERT INTO msgs (sender, receiver, msg) VALUES (1, 2, "hi there");
+INSERT INTO msgs (sender, receiver, msg) VALUES (2, 1, "you good?");
+INSERT INTO msgs (sender, receiver, msg) VALUES (3, 1, "Hi is the dog avaliable for breeding?");
+INSERT INTO msgs (sender, receiver, msg) VALUES (1, 2, "yes it is");
+INSERT INTO msgs (sender, receiver, msg) VALUES (1, 4, "hello there");
+INSERT INTO msgs (sender, receiver, msg) VALUES (4, 1, "hi");
+
 INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
 VALUES ("wby6env6ekb4", "images/pug.jpg", "mike", "pug", "male", "small", "this is a description", "these, are, some, features", 1, 1, "not me", 1, "mmclagain0@fema.gov");
 INSERT INTO allDogs (id, image, name, breed, sex, size, description, features, kennelClub, pedigree, owner, avaliable, email)
