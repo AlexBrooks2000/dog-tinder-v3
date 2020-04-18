@@ -1,8 +1,18 @@
 'use strict';
 const express = require('express');
 const app = express();
+const multer = require('multer');
 const db = require('./database.js');
 app.use(express.static('client'));
+
+const uploader = multer({
+  dest: 'upload',
+  limites: {
+    fields: 10,
+    fileSize: 1024 * 1024 * 20,
+    files: 1,
+  },
+});
 
 const msgs = [
   { sender: '1', reciever: '2', msg: 'hi there' },
@@ -33,12 +43,12 @@ async function getDogId(req, res) {
 }
 
 async function addDog(req, res) {
-  const input = await db.insertDog(req.body.image, req.body.name, req.body.breed, req.body.sex, req.body.size, req.body.description, req.body.features, req.body.kennelClub, req.body.pedigree, req.body.owner, req.body.avaliable, req.body.email, req.body.dob);
+  const input = await db.insertDog(req.body, req.file);
   res.json(input);
 }
 
 async function updateDog(req, res) {
-  const dog = await db.updateDogDB(req.body);
+  const dog = await db.updateDogDB(req.body, req.file);
   res.json(dog);
 }
 
@@ -77,8 +87,8 @@ app.get('/dogs/sex/:sex', asyncWrap(getDogSex));
 app.get('/dogs/owner/:owner', asyncWrap(getDogOwner));
 app.get('/dogs/id/:id', asyncWrap(getDogId));
 app.get('/msgs/:userID1/:userID2', getMsgs);
-app.put('/dogs/id/:id', express.json(), asyncWrap(updateDog));
-app.post('/dogs', express.json(), asyncWrap(addDog));
+app.put('/dogs/id/:id', uploader.single('image'), express.json(), asyncWrap(updateDog));
+app.post('/dogs', uploader.single('image'), express.json(), asyncWrap(addDog));
 app.post('/msgs', express.json(), postMsg);
 
 app.listen(8080);

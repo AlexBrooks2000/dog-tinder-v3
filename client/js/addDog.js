@@ -1,21 +1,3 @@
-class Dog {
-  constructor(image, name, breed, sex, size, description, features, kennelClub, pedigree, avaliable, email, owner, dob) {
-    this.image = image;
-    this.name = name;
-    this.breed = breed;
-    this.sex = sex;
-    this.size = size;
-    this.description = description;
-    this.features = features;
-    this.kennelClub = kennelClub;
-    this.pedigree = pedigree;
-    this.avaliable = avaliable;
-    this.email = email;
-    this.owner = owner;
-    this.dob = dob;
-  }
-}
-
 const el = {};
 
 function setElements() {
@@ -71,18 +53,27 @@ function createDogobject() {
   const getAvaliable = binaryTF(el.pedigree.value);
   const owner = 1;
 
-
-  const newDog = new Dog(el.proPic.value, el.name.value, el.breed.value, el.sex.value, el.size.value, el.description.value, features, getKennelClub, getPedigree, getAvaliable, el.email.value, owner, el.dob.value);
+  const newDog = new FormData();
+  newDog.append('image', el.proPic.files[0]);
+  newDog.append('name', el.name.value);
+  newDog.append('breed', el.breed.value);
+  newDog.append('sex', el.sex.value);
+  newDog.append('description', el.description.value);
+  newDog.append('features', features);
+  newDog.append('kennelClub', getKennelClub);
+  newDog.append('pedigree', getPedigree);
+  newDog.append('avaliable', getAvaliable);
+  newDog.append('email', el.email.value);
+  newDog.append('owner', owner);
+  newDog.append('dob', el.dob.value);
 
   postToServer(newDog);
 }
 
 async function postToServer(newDog) {
-  console.log(newDog);
   const response = await fetch('dogs', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newDog),
+    body: newDog,
   });
 
   if (response.ok) {
