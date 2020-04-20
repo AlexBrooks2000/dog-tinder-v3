@@ -8,10 +8,8 @@
     "fs": "0.0.1-security",
     "multer": "^1.4.2",
     "path": "^0.12.7",
-    "sqlite": "^3.0.3",
-    "sqlite3": "^4.1.1",
+    "sqlite": "^3.0.6",
     "util": "^0.12.2",
-    "uuid": "^7.0.0",
     "uuid-random": "^1.3.0"
   },
   "devDependencies": {
@@ -20,7 +18,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "setup": "npm i express && npm i fs && npm i multer && npm i path && npm i sqlite && npm i util && npm i uuid-random"
   },
   "repository": {
     "type": "git",

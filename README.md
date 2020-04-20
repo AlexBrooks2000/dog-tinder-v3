@@ -1,16 +1,16 @@
-# dog-tinder-v3
+# Web Application coursework
 ## Launch application
-Once cloned, the application should run with the command
+
+Setup application with the command.
+```sh
+npm run Setup
+```
+This will run all the needed dependencies.
+
+To start the application, use the command
 ```sh
 npm start
 ```
-if not, then you may need to install the packagaesexpress, uuid-random and sqlite using these commands:
-```sh
-npm i express
-npm i sqlite
-npm i uuid-random
-```
-
 ## Features
 ### Search for dogs
 The application allows you to search dogs by their sex. To do this, go to the "search dogs" page, select the sex you wanna find and press filter.
@@ -18,7 +18,7 @@ This will bring up all the dogs under that sex including dogs that belong to you
 
 ### Viewing a dog's profile
 To view a profile, go to "search dogs" and follow the instruction for search for dogs to list dogs. On each card there is a button that says 'profile',
-click the button to go to the profile. Alternativly, if you go to 'my dogs' it will list all dogs that beling to you, and pressing 'profile' will
+click the button to go to the profile. Alternatively, if you go to 'my dogs' it will list all dogs that belong to you, and pressing 'profile' will
 also take you to the dogs profile page.
 
 ### Add a dog
@@ -43,7 +43,19 @@ the user to log in and out of an account.
 ## Unfinished and future work
 
 * Improvements in design. Make each element more clear and usable and making sure nothing is coming out of any cards or elements and overlapping.
-* add more filters when searching for a dog, such as name breed and the ability to choose wether to include dogs owned by the user in the search
-* To imporve messaging. At the moment messaging only works through saving essages in an array serverside, and client side
-and the fetch function for the messages being called on a loop.
+* add more filters when searching for a dog, such as name breed and the ability to search by dogs owned by the user in the search
+* To improve messaging. Make messages more secure
 * The ability to log in and out of the application and for users to be able to create their own profiles.
+
+##  Images used:
+
+all images are found in client/images
+
+* chickpea.jpg -https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRya0RMEqjlhAfj6g6vCsst0Zgt5IfCbJ1_omRzuSts1pm2VfoG&usqp=CAU
+* corgi.jpg -https://external-preview.redd.it/kopRq3JVNYqi7dhArJyo-p76AyCqR6RbMC03uXmKPU0.jpg?auto=webp&s=6701d829c0f34b10e2d62a0a93dc593b4c7ec9f0
+* kennelClub.png -https://trustmarque.com/wp-content/uploads/2017/07/tm-casestudy3.png
+* lab.jpg -https://wi-images.condecdn.net/image/J6xAwXRMoXo/crop/810/f/GettyImages-174519161.jpg
+* logo.jpg -https://png.pngitem.com/pimgs/s/21-215182_perritos-de-navidad-animados-png-download-cartoon-dog.png
+* pedigree.png -https://seeklogo.com/images/P/Pedigree-logo-0B0352F571-seeklogo.com.png
+* pug.jpg -https://s3.amazonaws.com/weedsta/dispensaries/946/logo/xlarge/94620150724-32401-1rhzqbd.jpg?1437736029
+* RedCross.png -https://img.favpng.com/20/16/4/american-red-cross-international-red-cross-and-red-crescent-movement-clip-art-png-favpng-iqkU9DQsUrMdsYP41MzfLuxAj.jpg
